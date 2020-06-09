@@ -2,9 +2,6 @@ class Logic {
 
     constructor() {
 
-
-
-
         /*****************************************************************************************************/
         /*****************************************************************************************************/
         /**************************************APOSTADORES****************************************************/
@@ -109,14 +106,14 @@ class Logic {
 
             { 'data': "06/05/2020", 'concNum': 5262, 'n1': 20, 'n2': 24, 'n3': 60, 'n4': 66, 'n5': 69 },
 
-            { 'data': "07/05/2020", 'concNum': 5263, 'n1': 4, 'n2': 12, 'n3': 26, 'n4': 79, 'n5': 80 },
+            // { 'data': "07/05/2020", 'concNum': 5263, 'n1': 4, 'n2': 12, 'n3': 26, 'n4': 79, 'n5': 80 },
 
-            { 'data': "08/05/2020", 'concNum': 5264, 'n1': 3, 'n2': 10, 'n3': 22, 'n4': 38, 'n5': 45 },
+            // { 'data': "08/05/2020", 'concNum': 5264, 'n1': 3, 'n2': 10, 'n3': 22, 'n4': 38, 'n5': 45 },
 
 
-           // { 'data': "08/05/2020", 'concNum': 5264, 'n1': 1, 'n2': 7, 'n3': 11, 'n4': 46, 'n5': 55 },
+            // { 'data': "08/05/2020", 'concNum': 5264, 'n1': 1, 'n2': 7, 'n3': 11, 'n4': 46, 'n5': 55 },
 
-           // { 'data': "08/05/2020", 'concNum': 5264, 'n1': 14, 'n2': 40, 'n3': 54, 'n4': 72, 'n5': 55 },
+            // { 'data': "08/05/2020", 'concNum': 5264, 'n1': 14, 'n2': 40, 'n3': 54, 'n4': 72, 'n5': 55 },
 
 
 
@@ -150,10 +147,15 @@ class Logic {
 
         // variável para armazenar os pontos de cada apostador
         this.p = '';
+
         // variável que armazena as informações de cada linha(apostador)
         this.row = '';
+
         // id de onde aparecerá a tabela dos apostadores
         this.table = document.getElementById("tableRow");
+
+        // id da opção de atualizar a página
+        this.upPage = document.getElementById("updatePage");
 
         // variável armazena os dados de ranking
         this.row2 = '';
@@ -196,9 +198,11 @@ class Logic {
         // função que mostra os concursos
         this.numbersContests();
 
+
+
         // id de onde aparecerá a mensagem quando algum apostador marcar 10 pontos
         this.win = document.getElementById("tableWinner");
-       
+
         // variável para armazenar o(s)ganhadores
         this.row3 = '';
         // variável para informar que se o valor for 1,  o jogo acabou e mostrará os vencedores
@@ -207,6 +211,8 @@ class Logic {
         this.menor = 10;
         // função que mostra modal do(s)ganhador(es)
         this.winner();
+        // função para atualizar a página
+        this.updatePage();
 
     }// construtor
 
@@ -308,6 +314,7 @@ class Logic {
         console.log("Pontuação:")
         console.log(this.apostadores);
         //**************************************/
+
     }// updateNumberOfBettors
 
 
@@ -747,7 +754,7 @@ class Logic {
         for (let i = 0; i < this.apostadores.length; i++) {
 
             if (this.apostadores[i].pontos == 10) {
-            
+
                 this.winAps = 1;
                 this.row3 +=
                     `
@@ -758,8 +765,8 @@ class Logic {
                 </tr>
             `;
                 // abre o modal caso o if seja verdadeiro
-                $('#winner').modal('show');  
-            
+                $('#winner').modal('show');
+
                 // x++;
             }//
         } // for vencedor
@@ -767,12 +774,12 @@ class Logic {
 
         // define o pé frio
         for (let y = this.apostadores.length - 1; y >= 0; y--) {
-        
-                if (this.apostadores[y].pontos <= this.menor && this.winAps == 1) {
-                        this.menor = this.apostadores[y].pontos;
-        
-                        this.row3 +=
-                       `
+
+            if (this.apostadores[y].pontos <= this.menor && this.winAps == 1) {
+                this.menor = this.apostadores[y].pontos;
+
+                this.row3 +=
+                    `
                         <tr align="center">
                         <th>Pé Frio</th>
                         <td>${this.apostadores[y].nome}</td>
@@ -780,14 +787,22 @@ class Logic {
                         </tr>
                      `;
 
-        } // for pé frio
-        
-        this.win.innerHTML = this.row3;
-     }
-            
+            } // for pé frio
 
-        
+            this.win.innerHTML = this.row3;
+        }
+
     }// winner
+
+    updatePage() {
+        this.upPage.addEventListener("click", event => {
+            document.location.reload(true);
+        });
+
+        this.upPage.addEventListener("mousemove", event => {
+            this.upPage.style.cursor = "pointer";
+        });
+    } // updatePage
 
 
 
