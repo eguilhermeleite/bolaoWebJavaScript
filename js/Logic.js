@@ -2,6 +2,9 @@ class Logic {
 
     constructor() {
 
+
+
+
         /*****************************************************************************************************/
         /*****************************************************************************************************/
         /**************************************APOSTADORES****************************************************/
@@ -110,7 +113,10 @@ class Logic {
 
             { 'data': "08/05/2020", 'concNum': 5264, 'n1': 3, 'n2': 10, 'n3': 22, 'n4': 38, 'n5': 45 },
 
-            
+
+            { 'data': "08/05/2020", 'concNum': 5264, 'n1': 1, 'n2': 7, 'n3': 11, 'n4': 46, 'n5': 55 },
+
+            { 'data': "08/05/2020", 'concNum': 5264, 'n1': 14, 'n2': 40, 'n3': 54, 'n4': 72, 'n5': 55 },
 
 
 
@@ -194,6 +200,8 @@ class Logic {
         this.win = document.getElementById("tableWinner");
         // variável para armazenar o(s)ganhadores
         this.row3 = '';
+        // base para saber do pé frio
+        this.menor = 10;
         // função que mostra modal do(s)ganhador(es)
         this.winner();
 
@@ -730,24 +738,45 @@ class Logic {
     }
 
     winner() {
-        let x = 1;
+        //let x = 1;
+
+        // define o vencedor
         for (let i = 0; i < this.apostadores.length; i++) {
 
             if (this.apostadores[i].pontos == 10) {
                 this.row3 +=
                     `
                 <tr align="center">
-                <th>${x}º</th>
+                <th>1º</th>
                 <td>${this.apostadores[i].nome}</td>
                 <th> ${this.apostadores[i].pontos}</th>     
                 </tr>
             `;
-                x++;
-                // abre o modal caso o if seja verdadeiro
-                $('#winner').modal('show');
+                // x++;
+            }//
+        } // for vencedor
+
+
+        // define o pé frio
+        for (let y = this.apostadores.length - 1; y >= 0; y--) {
+            if (this.apostadores[y].pontos <= this.menor) {
+                this.menor = this.apostadores[y].pontos;
+
+                this.row3 +=
+                    `
+                <tr align="center">
+                <th>pé frio</th>
+                <td>${this.apostadores[y].nome}</td>
+                <th> ${this.apostadores[y].pontos}</th>     
+                </tr>
+            `;
             }
-        }
+
+        } // for pé frio
+
         this.win.innerHTML = this.row3;
+        // abre o modal caso o if seja verdadeiro
+        $('#winner').modal('show');
     }// winner
 
 
